@@ -1,12 +1,13 @@
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import java.io.IOException;
-import java.io.Reader;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.regex.*;
 
-    public class StateCensusAnalyzer {
+public class StateCensusAnalyzer {
 
         public static boolean checkType(String path)
         {
@@ -15,8 +16,33 @@ import java.util.Iterator;
             else
                 return false;
         }
+        public static boolean checkDelimiter(String path) throws CustomException
+        {
+            try {
+                Reader reader = Files.newBufferedReader(Paths.get(path));
+                BufferedReader bf = new BufferedReader(reader);
+                String line;
+                while ((line = bf.readLine()) != null) {
+                    String[] arr = line.split(",");
+                    for (String x : arr) {
+                        if (Pattern.matches(".*[^A-Za-z0-9 ].*", x)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+               return false;
+            }
+            return true;
+        }
         public int readData(String path) throws CustomException{
             if(!checkType(path))
+            {
+                throw new CustomException();
+            }
+            if(!checkDelimiter(path))
             {
                 throw new CustomException();
             }

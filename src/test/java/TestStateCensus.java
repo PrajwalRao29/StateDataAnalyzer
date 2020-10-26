@@ -17,6 +17,10 @@ public class TestStateCensus {
     @Test(expected = CustomException.class)
     public void test3_CorrectFile_IncorrectType() throws CustomException {
         int count = c.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\StateCensusData.txt");
-        Assert.assertEquals(29, count);
+    }
+
+    @Test(expected = CustomException.class)
+    public void test4_CorrectFile_IncorrectDelimiter() throws CustomException {
+        int count = c.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\Delimiter.csv");
     }
 }
