@@ -34,4 +34,24 @@ public class TestStateCensus {
         int count = s.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\StateCode.csv");
         Assert.assertEquals(37, count);
     }
+
+    @Test(expected = CustomException.class)
+    public void test7_IncorrectFile() throws CustomException {
+        int count = s.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\StateCode.csv");
+    }
+
+    @Test(expected = CustomException.class)
+    public void test8_CorrectFile_IncorrectType() throws CustomException {
+        int count = s.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\StateCode.txt");
+    }
+
+    @Test(expected = CustomException.class)
+    public void test9_CorrectFile_IncorrectDelimiter() throws CustomException {
+        int count = s.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\Delimiter2.csv");
+    }
+
+    @Test(expected = CustomException.class)
+    public void test10_CorrectFile_IncorrectHeader() throws CustomException {
+        int count = s.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\Header2.csv");
+    }
 }
