@@ -23,4 +23,9 @@ public class TestStateCensus {
     public void test4_CorrectFile_IncorrectDelimiter() throws CustomException {
         int count = c.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\Delimiter.csv");
     }
+
+    @Test(expected = CustomException.class)
+    public void test5_CorrectFile_IncorrectHeader() throws CustomException {
+        int count = c.readData("C:\\Users\\Latha r rao\\Intellij\\StateCensusAnalyzer\\src\\Header.csv");
+    }
 }

@@ -16,7 +16,7 @@ public class StateCensusAnalyzer {
             else
                 return false;
         }
-        public static boolean checkDelimiter(String path) throws CustomException
+        public static boolean checkDelimiter(String path)
         {
             try {
                 Reader reader = Files.newBufferedReader(Paths.get(path));
@@ -37,12 +37,35 @@ public class StateCensusAnalyzer {
             }
             return true;
         }
+    public static boolean checkHeader(String path) throws CustomException {
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+            BufferedReader bf = new BufferedReader(reader);
+            String line;
+            while ((line = bf.readLine()) != null) {
+                String[] arr = line.split(",");
+                if (arr[0].equals("State") && arr[1].equals("Population") && arr[2].equals("AreaInSqKm") && arr[3].equals("DensityPerSqKm"))
+                break;
+                else
+                return false;
+            }
+        }
+        catch(Exception e)
+        {
+           return false;
+        }
+        return true;
+    }
         public int readData(String path) throws CustomException{
             if(!checkType(path))
             {
                 throw new CustomException();
             }
             if(!checkDelimiter(path))
+            {
+                throw new CustomException();
+            }
+            if(!checkHeader(path))
             {
                 throw new CustomException();
             }
