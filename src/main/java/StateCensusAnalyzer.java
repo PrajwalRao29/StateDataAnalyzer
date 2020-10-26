@@ -8,7 +8,7 @@ import java.util.Iterator;
 
     public class StateCensusAnalyzer {
 
-        public int readData(String path) {
+        public int readData(String path) throws CustomException{
             int count = 0;
             try {
                 Reader reader = Files.newBufferedReader(Paths.get(path));
@@ -19,7 +19,10 @@ import java.util.Iterator;
                     StateCensus csvData = i.next();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+               throw new CustomException();
+            }  catch(Exception e)
+            {
+                throw new CustomException();
             }
             return count;
         }
